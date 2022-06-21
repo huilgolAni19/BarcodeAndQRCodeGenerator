@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRCODE GENERATOR</title>
+    <style>
+
+        .button {
+            background-color: #5868bf;
+            color: #ffffff;
+            width: 150px;
+            height: 30px;
+            border: 1px #5566c7 solid;
+        }
+
+        .button2 {
+            background-color: #5868bf;
+            color: #ffffff;
+            width: 200px;
+            height: 30px;
+            border: 1px #5566c7  solid;
+        }
+
+        .form-control {
+            border: 1px #e6e6e6 solid;
+            border-radius: 5px;
+            height: 30px;
+            width: 150px;
+            margin-bottom: 8px;
+            padding-left: 8px;
+        }
+
+        .form-control2 {
+            border: 1px #c7c7c7 solid;
+            border-radius: 5px;
+            height: 30px;
+            padding-left: 8px;
+            width: 200px;
+            margin-bottom: 8px;
+        }
+
+        .qr {
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <div>
+        <input type="text" class="form-control" id="text" placeholder="Enter the text">
+    </div>
+    <div>
+        <button class="button" onclick="genQRCode()">GENERATRE QR</button>
+    </div>
+    <canvas class="qr" id="qrcode"></canvas>
+    
+
+    <div>
+        <input type="text" class="form-control2" id="text2" placeholder="Enter the text">
+    </div>
+    <div>
+        <button class="button2" onclick="genBarcode()">GENERATRE BARCODE</button>
+    </div>
+    <canvas id="barcode"></canvas>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+
+    <!-- <script src="js/qrious.min.js"></script> -->
+    <script>
+       let generateQRCode = (text, size, canvas) => {
+            let options = {}
+            options["background"] = '#ffffff';
+            options["backgroundAlpha"] = 0.8;
+            options["foreground"] = '#000000';
+            options["foregroundAlpha"] = 0.8;
+            options["level"] = 'H';
+            options["padding"] = 0;
+            options["size"] = size;
+            options["value"] = text;
+            options["element"] = canvas;
+            let qrcode = new QRious(options);
+       };
+
+       let generateBarcode = (text) => {
+            let options = {};
+            options["format"] = "CODE128"
+            JsBarcode("#barcode", text, options);
+       };
+
+       let genQRCode = () => {
+            let qrcodeCanvas = document.getElementById("qrcode");
+            let text = document.getElementById("text").value;
+            generateQRCode(text, 128, qrcodeCanvas);
+       }
+       
+       let genBarcode =() =>  {
+            let text = document.getElementById("text2").value;
+            generateBarcode(text);
+       }
+    </script>
+</body>
+</html>
